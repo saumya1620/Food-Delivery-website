@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    gap: 50px;
     text-align: center;
     margin: 20px 0px;
     overflow-x: scroll;
@@ -53,4 +53,10 @@
     border: 4px solid tomato;
     padding: 2px;
     
+}
+@media (max-width:1050px){
+    .explore-menu-text{
+        max-width: 100%;
+        font-size: 14px;
+    }
 }
