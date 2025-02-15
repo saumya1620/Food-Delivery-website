@@ -28,7 +28,15 @@
   },
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saumya1620/Food-Delivery-website.git"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saumya1620/Food-Delivery-website/issues"
+  },
+  "homepage": "https://github.com/saumya1620/Food-Delivery-website#readme"
 }
