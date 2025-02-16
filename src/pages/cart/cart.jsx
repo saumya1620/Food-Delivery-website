@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import "./cart.css";
-import { food_list } from "../../assets/assets";
+import { Storecontext } from "../../context/Storecontext";
+import { useNavigate } from "react-router-dom";
+
 const cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount } =
-    useContext(StoreContext);
+  const { cartitems, food_list, removefromcart, getTotalCartAmount } =
+    useContext(Storecontext);
+    const navigate = useNavigate();
 
   return (
     <div className="cart">
@@ -19,16 +22,16 @@ const cart = () => {
         <br />
         <hr />
         {food_list.map((item, index) => {
-          if (cartItems[item._id] > 0) {
+          if (cartitems[item._id] > 0) {
             return (
               <div>
                 <div className="cart-items-title cart-items-item">
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
                   <p>{item.price}</p>
-                  <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeFromCart(item._id)} className="cross">
+                  <p>{cartitems[item._id]}</p>
+                  <p>${item.price * cartitems[item._id]}</p>
+                  <p onClick={() => removefromcart(item._id)} className="cross">
                     x
                   </p>
                 </div>
@@ -50,16 +53,16 @@ const cart = () => {
 
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${2}</p>
+              <p>${getTotalCartAmount()===0 ? 0:2}</p>
             </div>
             <hr />
 
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${getTotalCartAmount() + 2}</b>
+              <b>${getTotalCartAmount()===0 ? 0:getTotalCartAmount() + 2}</b>
             </div>
           </div>
-          <button>PROCEED TO CHECKOUT</button>
+          <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promocode">
           <div>
