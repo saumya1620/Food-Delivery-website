@@ -1,37 +1,66 @@
-import React, { useState } from 'react'
-import Navbar from './components/Navbar/Navbar'
-import { Route, Routes } from 'react-router-dom'
-import  Home from './pages/home/home'
-import Cart from './pages/cart/cart'
-import Placeorder from './pages/placeorder/placeorder'
-import Footer from './components/footer/Footer'
-import LoginPopup from './components/LoginPopup/LoginPopup'
-import Myorders from './pages/myorders/Myorders'
-import Verify from './pages/verify/Verify'
+import React, { useState } from 'react';
+import Navbar from './components/Navbar/Navbar';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/home/home';
+import Cart from './pages/cart/cart';
+import Placeorder from './pages/placeorder/placeorder';
+import Footer from './components/footer/Footer';
+import LoginPopup from './components/LoginPopup/LoginPopup';
+import Myorders from './pages/myorders/Myorders';
+import Verify from './pages/verify/Verify';
+
+// Import Chatbot Components
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import config from "./chatbot/config";
+import MessageParser from "./chatbot/MessageParser";
+import ActionProvider from "./chatbot/ActionProvider";
 
 const App = () => {
-
-  const[showLogin,setShowLogin]=useState(false)
+  const [showLogin, setShowLogin] = useState(false);
+  const [showChat, setShowChat] = useState(false); // Define showChat state
 
   return (
     <>
-    {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
-    <div className='app'>
-      <Navbar setShowLogin={setShowLogin}/>
-      
+      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+      <div className="app">
+        <Navbar setShowLogin={setShowLogin} />
         <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/order' element={<Placeorder/>}/>
-          <Route path ='/Verify' element={<Verify/>}/>
-          <Route path='/Myorders' element={<Myorders/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/order" element={<Placeorder />} />
+          <Route path="/Verify" element={<Verify />} />
+          <Route path="/Myorders" element={<Myorders />} />
         </Routes>
-      
-    </div>
-    <Footer/>
+        
+        {/* Chatbot Button and Component */}
+        <div style={{ position: "fixed", bottom: "20px", right: "20px", zIndex: 1000 }}>
+          <button
+            style={{
+              padding: "10px",
+              background: "orange", // Changed color to orange as per your previous request
+              color: "white",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            onClick={() => setShowChat(!showChat)} // Toggle chat visibility
+          >
+            {showChat ? "Close Chat" : "Chat with Us"}
+          </button>
+          {showChat && (
+            <div style={{ width: "350px", height: "400px" }}>
+              <Chatbot
+                config={config}
+                messageParser={MessageParser}
+                actionProvider={ActionProvider}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+      <Footer />
     </>
-    
-  )
-}
+  );
+};
 
-export default App
+export default App;
