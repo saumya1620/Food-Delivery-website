@@ -9,11 +9,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import Login from "./components/Login";
+import { useEffect } from "react";
+import { getAuthToken } from "./misc";
 
 const App = () => {
   const [isSignin, setIsSignin] = useState(false);
-
-  const url = "http://localhost:4000";
+  useEffect(() => {
+    const token = getAuthToken();
+    if (token) {
+      setIsSignin(true);
+    }
+  }, []);
   return (
     <div>
       <ToastContainer />
@@ -24,14 +30,14 @@ const App = () => {
           <div className="app-content">
             <Sidebar />
             <Routes>
-              <Route path="/add" element={<Add url={url} />} />
-              <Route path="/list" element={<List url={url} />} />
-              <Route path="/orders" element={<Orders url={url} />} />
+              <Route path="/add" element={<Add />} />
+              <Route path="/list" element={<List />} />
+              <Route path="/orders" element={<Orders />} />
             </Routes>
           </div>
         </>
       ) : (
-        <Login />
+        <Login onLogin={setIsSignin} />
       )}
     </div>
   );

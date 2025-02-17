@@ -1,13 +1,14 @@
-.login-popup {
+.login {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   background-color: white;
 }
 
-.login-popup-container {
+.login-container {
   width: 100%;
   max-width: 350px;
   background-color: white;
@@ -17,25 +18,25 @@
   text-align: center;
 }
 
-.login-popup-title h2 {
+.login-title h2 {
   color: black;
   margin-bottom: 20px;
 }
 
-.login-popup-inputs {
+.login-inputs {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.login-popup-inputs input {
+.login-inputs input {
   border: 1px solid #c9c9c9;
   padding: 10px;
   border-radius: 4px;
   font-size: 14px;
 }
 
-.login-popup-container button {
+.login-container button {
   width: 100%;
   border: none;
   padding: 10px;
@@ -45,4 +46,9 @@
   font-size: 15px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.error {
+  color: red;
+  margin: 5px 0px;
 }
