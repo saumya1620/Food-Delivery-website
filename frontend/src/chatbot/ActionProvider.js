@@ -13,9 +13,9 @@ class ActionProvider {
 
   showOffers = () => {
     const message = this.createChatBotMessage(
-      `🎉 Current Offers:<br/><br/>
-      - 20% off on orders above ₹500<br/>
-      - Buy 1 Get 1 Free on Pizzas 🍕<br/>
+      `🎉 Current Offers:
+      - 20% off on orders above ₹500
+      - Buy 1 Get 1 Free on Pizzas 🍕
       - Free Dessert with any main course order 🍰`
     );
     this.addMessageToState(message);
