@@ -1,10 +1,31 @@
 import { createContext, useState, useEffect } from "react";
 import { food_list } from "../assets/assets";
-
+import { getBaseApiUrl } from "../misc";
+import axios from "axios";
 // Create the context
 export const Storecontext = createContext(null);
 
 const Storecontextprovider = (props) => {
+  const [dishes, setDishes] = useState([]);
+  const fetchDishes = async () => {
+    try {
+      const response = await axios.get(getBaseApiUrl() + "/dishes");
+      if (response.data.success) {
+        setDishes(response.data.data);
+      } else {
+        // toast.error(response.data.message);
+        console.log("Error while fetching dishes", response.data.message);
+      }
+    } catch (error) {
+      console.error("API Fetch dishes Error:", error);
+      // toast.error("Error fetching food categories.");
+    }
+  };
+
+  useEffect(() => {
+    fetchDishes();
+  }, []);
+
   const [cartitems, setcartitems] = useState({});
   const addtocart = (itemId) => {
     if (!cartitems[itemId]) {
@@ -21,7 +42,7 @@ const Storecontextprovider = (props) => {
     let totalAmount = 0;
     for (const item in cartitems) {
       if (cartitems[item] > 0) {
-        let itemInfo = food_list.find((product) => product._id === item);
+        let itemInfo = dishes.find((product) => product._id === item);
         totalAmount += itemInfo.price * cartitems[item];
       }
     }
@@ -29,7 +50,7 @@ const Storecontextprovider = (props) => {
   };
 
   const contextvalue = {
-    food_list,
+    dishes,
     cartitems,
     setcartitems,
     addtocart,
