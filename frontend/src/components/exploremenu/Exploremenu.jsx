@@ -37,13 +37,13 @@ const Exploremenu = ({ category, setCategory }) => {
           return (
             <div
               onClick={() =>
-                setCategory((prev) => (prev === item.name ? "All" : item.name))
+                setCategory((prev) => (prev === item.id ? "All" : item.id))
               }
               key={index}
               className="explore-menu-list-item"
             >
               <img
-                className={category === item.name ? "active" : ""}
+                className={category === item.id ? "active" : ""}
                 src={`${getBaseApiUrl()}/${item.imagePath}`}
                 alt=""
               />

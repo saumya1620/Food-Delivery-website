@@ -38,11 +38,17 @@ const Storecontextprovider = (props) => {
     setcartitems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
 
+  const resetcart = () => {
+    setcartitems({});
+  };
+
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartitems) {
       if (cartitems[item] > 0) {
-        let itemInfo = dishes.find((product) => product._id === item);
+        let itemInfo = dishes.rows.find(
+          (product) => product.id === Number(item)
+        );
         totalAmount += itemInfo.price * cartitems[item];
       }
     }
@@ -55,6 +61,7 @@ const Storecontextprovider = (props) => {
     setcartitems,
     addtocart,
     removefromcart,
+    resetcart,
     getTotalCartAmount,
   };
 

@@ -67,7 +67,7 @@ const List = ({ url }) => {
                 alt={item.name}
               />
               <p>{item.name}</p>
-              <p>{item.category}</p>
+              <p>{item.categoryId}</p>
               <p>${item.price}</p>
               <p>${item.type}</p>
               <p onClick={() => removeFood(item.id)} className="cursor">
