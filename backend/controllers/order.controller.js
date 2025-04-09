@@ -1,4 +1,9 @@
-const { USER_MESSAGES } = require("../constants/user.messages");
+const {
+  USER_MESSAGES,
+  PAYMENT_STATUSES,
+  FRONTEND_URL,
+} = require("../constants/user.messages");
+const { createCashfreeOrder } = require("../lib/cashfree");
 const db = require("../models");
 
 class OrderController {
@@ -25,8 +30,7 @@ class OrderController {
   }
 
   static async create(req, res) {
-    const { items, amount, address, status, deliveryFee, discount, payment } =
-      req.body;
+    const { items, amount, address, status, deliveryFee, discount } = req.body;
     const { userId } = req.user;
     const order = await db.Order.create({
       userId,
@@ -35,8 +39,9 @@ class OrderController {
       status: status || undefined,
       deliveryFee: deliveryFee || 0,
       discount: discount || 0,
-      payment: payment || false,
+      paymentStatus: PAYMENT_STATUSES.None,
     });
+
     for (let item of items) {
       await db.OrderDish.create({
         orderId: order.id,
@@ -44,12 +49,56 @@ class OrderController {
         quantity: item.quantity,
       });
     }
-
-    res.status(200).json({
-      success: true,
-      message: USER_MESSAGES.orderCreated,
-      data: order,
+    const orderWithItems = await db.Order.findByPk(order.id, {
+      include: {
+        model: db.Dish,
+        through: db.OrderDish,
+        attributes: ["name", "price", "description"],
+      },
     });
+
+    // create cashfree order
+    var cfRequest = {
+      order_amount: orderWithItems.amount,
+      order_currency: "INR",
+      order_id: "tomato_" + orderWithItems.uuid,
+      customer_details: {
+        customer_id: "tomato_" + orderWithItems.userId,
+        customer_phone: orderWithItems.address.phone,
+        customer_name: `${orderWithItems.address.firstName} ${orderWithItems.address.lastName}`,
+        customer_email: orderWithItems.address.email,
+      },
+      order_meta: {
+        return_url: FRONTEND_URL + "/checkout?order_id={order_id}",
+      },
+      cart_details: {
+        cart_items: orderWithItems.Dishes.map((item) => ({
+          item_id: "tomato_" + item.id,
+          item_name: item.name,
+          item_description: item.description,
+          item_image_url: `${FRONTEND_URL}/public/dishes/${item.id}.jpeg`,
+          item_original_unit_price: item.price,
+          item_discounted_unit_price: 0.0,
+          item_quantity: item.OrderDish.quantity,
+          item_currency: "INR",
+        })),
+      },
+    };
+    await createCashfreeOrder(cfRequest)
+      .then((result) => {
+        res.status(200).json({
+          success: true,
+          message: USER_MESSAGES.orderCreated,
+          data: { order: orderWithItems, cashifyOrder: result },
+        });
+      })
+      .catch((err) => {
+        res.status(200).json({
+          success: false,
+          message: err,
+          errors: null,
+        });
+      });
   }
 
   static async update(req, res) {

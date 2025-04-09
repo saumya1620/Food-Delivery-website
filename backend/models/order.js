@@ -26,7 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       deliveryFee: DataTypes.FLOAT,
       discount: DataTypes.FLOAT,
-      payment: DataTypes.BOOLEAN,
+      paymentStatus: DataTypes.STRING,
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
     },
     {
       sequelize,

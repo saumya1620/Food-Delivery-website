@@ -34,4 +34,19 @@ const ORDER_STATUSES = {
   Rejected: "Rejected",
   Cancelled: "Cancelled",
 };
-module.exports = { USER_MESSAGES, ORDER_STATUSES };
+
+const PAYMENT_STATUSES = {
+  None: "None",
+  Success: "Success",
+  Pending: "Pending",
+  Failure: "Failure",
+};
+
+const FRONTEND_URL = "http://localhost:5174";
+
+module.exports = {
+  USER_MESSAGES,
+  ORDER_STATUSES,
+  PAYMENT_STATUSES,
+  FRONTEND_URL,
+};

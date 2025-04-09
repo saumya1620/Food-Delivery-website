@@ -1,6 +1,9 @@
 "use strict";
 
-const { ORDER_STATUSES } = require("../constants/user.messages");
+const {
+  ORDER_STATUSES,
+  PAYMENT_STATUSES,
+} = require("../constants/user.messages");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -40,9 +43,13 @@ module.exports = {
         type: Sequelize.FLOAT,
         defaultValue: 0,
       },
-      payment: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      paymentStatus: {
+        type: Sequelize.STRING,
+        defaultValue: PAYMENT_STATUSES.None,
+      },
+      uuid: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

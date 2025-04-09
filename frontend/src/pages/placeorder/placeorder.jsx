@@ -4,6 +4,7 @@ import { Storecontext } from "../../context/Storecontext";
 import { getAuthToken, getBaseApiUrl } from "../../misc";
 import { toast } from "react-toastify";
 import axios from "axios";
+import RedirectCheckout from "./redirectCheckout";
 
 function FormValuesReducer(state, action) {
   switch (action.type) {
@@ -28,6 +29,7 @@ const initialFormValues = {
   zipcode: "123456",
   country: "India",
   phone: "+91 1234567890",
+  notes: "",
 };
 
 const placeorder = ({ setShowLogin, isSignIn }) => {
@@ -36,6 +38,8 @@ const placeorder = ({ setShowLogin, isSignIn }) => {
   const [formValues, dispatch] = useReducer(FormValuesReducer, {
     ...initialFormValues,
   });
+
+  const [paymentSessionid, setPaymentSessionid] = useState();
 
   const onChangeField = (name, value) => {
     dispatch({
@@ -71,9 +75,10 @@ const placeorder = ({ setShowLogin, isSignIn }) => {
       const resp = result.data || {};
       if (resp.success) {
         toast.success(resp.message);
-        dispatch({ type: "reset", payload: { ...initialFormValues } });
-        resetcart();
-        window.location.href = "/Myorders";
+        // dispatch({ type: "reset", payload: { ...initialFormValues } });
+        // resetcart();
+        // window.location.href = "/Myorders";
+        setPaymentSessionid(result.cashifyOrder.payment_session_id);
       } else {
         toast.error(resp.message);
       }
@@ -86,6 +91,7 @@ const placeorder = ({ setShowLogin, isSignIn }) => {
   };
   return (
     <div>
+      {paymentSessionid && <RedirectCheckout sessionId={paymentSessionid} />}
       <form action="" className="place-order">
         <div className="place-order-left">
           <p className="title">Delivery Information</p>
@@ -148,6 +154,12 @@ const placeorder = ({ setShowLogin, isSignIn }) => {
             placeholder="Phone"
             value={formValues["phone"]}
             onChange={(evt) => onChangeField("phone", evt.target.value)}
+          />
+          <textarea
+            name="notes"
+            placeholder="Delivery Instructions"
+            value={formValues["notes"]}
+            onChange={(evt) => onChangeField("notes", evt.target.value)}
           />
         </div>
         <div className="place-order-right">

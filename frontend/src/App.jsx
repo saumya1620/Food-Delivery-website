@@ -18,6 +18,7 @@ import config from "./chatbot/config";
 import MessageParser from "./chatbot/MessageParser";
 import ActionProvider from "./chatbot/ActionProvider";
 import { getAuthToken } from "./misc";
+import Checkout from "./pages/placeorder/checkout";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -49,6 +50,7 @@ const App = () => {
               <Placeorder setShowLogin={setShowLogin} isSignIn={isSignin} />
             }
           />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/Verify" element={<Verify />} />
           <Route path="/Myorders" element={<Myorders />} />
         </Routes>
