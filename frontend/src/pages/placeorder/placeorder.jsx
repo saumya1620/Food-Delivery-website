@@ -28,7 +28,7 @@ const initialFormValues = {
   state: "chandigarh",
   zipcode: "123456",
   country: "India",
-  phone: "+91 1234567890",
+  phone: "9999999999",
   notes: "",
 };
 
@@ -78,13 +78,19 @@ const placeorder = ({ setShowLogin, isSignIn }) => {
         // dispatch({ type: "reset", payload: { ...initialFormValues } });
         // resetcart();
         // window.location.href = "/Myorders";
-        setPaymentSessionid(result.cashifyOrder.payment_session_id);
+        setPaymentSessionid(resp.data.cashifyOrder.payment_session_id);
       } else {
         toast.error(resp.message);
       }
     } catch (e) {
       console.log("Login failed", e);
-      toast.error("Order failed!");
+      if (e.status && e.status === 401) {
+        // show login popup here
+
+        setShowLogin(true);
+      } else {
+        toast.error("Order failed!");
+      }
     } finally {
       setLoading(false);
     }
