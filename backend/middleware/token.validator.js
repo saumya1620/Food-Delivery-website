@@ -30,7 +30,7 @@ function isAdmin(req, res, next) {
 
 function verifyCashfreeSignature(req, res, next) {
   const body = req.headers["x-webhook-timestamp"] + req.rawBody;
-  const secretKey = "cfsk_ma_test_203e52d3e1a19047374e825ea62f7197_4d1f5c37";
+  const secretKey = process.env.CASHFREE_API_SECRET;
   let generatedSignature = crypto
     .createHmac("sha256", secretKey)
     .update(body)
