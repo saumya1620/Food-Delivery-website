@@ -1,7 +1,6 @@
-const CASHFREE_API_KEY = "TEST10554405f845b6d11ae8b0744b6850445501";
-const CASHFREE_API_SECRET =
-  "cfsk_ma_test_203e52d3e1a19047374e825ea62f7197_4d1f5c37";
-const CASHFREE_API_URL = "https://sandbox.cashfree.com/pg";
+const CASHFREE_API_KEY = process.env.CASHFREE_API_KEY;
+const CASHFREE_API_SECRET = process.env.CASHFREE_API_SECRET;
+const CASHFREE_API_URL = process.env.CASHFREE_API_URL;
 export async function createCashfreeOrder(request) {
   try {
     const options = {
