@@ -39,7 +39,9 @@ const placeorder = ({ setShowLogin, isSignIn }) => {
     ...initialFormValues,
   });
 
-  const [paymentSessionid, setPaymentSessionid] = useState();
+  const [paymentSessionid, setPaymentSessionid] = useState(
+    "session_nORTp48kTk-Yv2IM1wBbkUcGMyEu8qCwjietpJV6RK7viC4UuECzvEv6PN0z2A2emUS5J0dkAE6av4rozHlyc2DnacyUW6ermJ3cHhinPiuiRr49z8sQZm0payment"
+  );
 
   const onChangeField = (name, value) => {
     dispatch({

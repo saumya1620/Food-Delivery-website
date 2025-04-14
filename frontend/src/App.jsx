@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/home/home";
-import Cart from "./pages/cart/cart";
-import Placeorder from "./pages/placeorder/placeorder";
+import { ToastContainer } from "react-toastify";
+
+// Components
+import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
+
+// Pages
+import Home from "./pages/home/Home";
+import Cart from "./pages/cart/Cart";
+import Placeorder from "./pages/placeorder/placeorder";
+import Checkout from "./pages/placeorder/checkout";
 import Myorders from "./pages/myorders/Myorders";
 import Verify from "./pages/verify/Verify";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Support from "./pages/support/support";
 
-// Import Chatbot Components
+// Chatbot
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import config from "./chatbot/config";
 import MessageParser from "./chatbot/MessageParser";
 import ActionProvider from "./chatbot/ActionProvider";
-import { getAuthToken } from "./misc";
-import Checkout from "./pages/placeorder/checkout";
 
+// Styles
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
+
+// Utils
+import { getAuthToken } from "./misc";
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showChat, setShowChat] = useState(false); // Define showChat state
@@ -53,6 +62,7 @@ const App = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/Verify" element={<Verify />} />
           <Route path="/Myorders" element={<Myorders />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
 
         {/* Chatbot Button and Component */}

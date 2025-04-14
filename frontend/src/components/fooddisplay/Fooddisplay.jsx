@@ -3,7 +3,6 @@ import "./Fooddisplay.css";
 // import { food_list } from '../../assets/assets'
 import { Storecontext } from "../../context/Storecontext";
 import Fooditem from "../fooditem/Fooditem";
-import { getBaseApiUrl } from "../../misc";
 const Fooddisplay = ({ category }) => {
   const { dishes } = useContext(Storecontext);
   return (
@@ -19,7 +18,7 @@ const Fooddisplay = ({ category }) => {
                 name={item.name}
                 description={item.description}
                 price={item.price}
-                image={`${getBaseApiUrl()}/${item.imageUrl}`}
+                image={item.imageUrl}
               />
             );
           }

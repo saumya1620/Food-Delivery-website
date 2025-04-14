@@ -1,26 +1,243 @@
 "use strict";
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-     */
-    return queryInterface.bulkInsert("Dishes", []);
+  up: async (queryInterface, Sequelize) => {
+    const now = new Date();
+    await queryInterface.bulkInsert("Dishes", [
+      // ... your existing categoryId: 13 and 14 dishes (not repeating here)
+
+      // Indian Dishes - categoryId: 15
+      {
+        name: "Paneer Butter Masala",
+        description: "Rich tomato-based curry with soft paneer cubes.",
+        price: 150,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Dal Makhani",
+        description: "Creamy black lentil curry with butter and spices.",
+        price: 130,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Veg Biryani",
+        description: "Fragrant basmati rice cooked with mixed vegetables.",
+        price: 140,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Chole Masala",
+        description: "Spicy chickpea curry cooked with onion and tomato.",
+        price: 120,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Aloo Gobi",
+        description: "Potato and cauliflower cooked with Indian spices.",
+        price: 110,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Baingan Bharta",
+        description: "Roasted mashed eggplant cooked with garlic and spices.",
+        price: 115,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Butter Naan",
+        description: "Soft leavened Indian bread topped with butter.",
+        price: 40,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Tandoori Roti",
+        description: "Whole wheat flatbread cooked in a tandoor oven.",
+        price: 30,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Missi Roti",
+        description: "Spiced gram flour flatbread with herbs.",
+        price: 35,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Stuffed Kulcha",
+        description: "Soft bread stuffed with spiced potatoes and herbs.",
+        price: 50,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Lachha Paratha",
+        description: "Layered crispy flatbread made with ghee.",
+        price: 45,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Masala Dosa",
+        description: "South Indian rice crepe filled with spiced potatoes.",
+        price: 110,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Rajma Chawal",
+        description: "Red kidney beans curry served with steamed rice.",
+        price: 100,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+
+      {
+        name: "Kadai Paneer",
+        description: "Paneer cooked with capsicum and onion in spicy gravy.",
+        price: 140,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Aloo Paratha with Curd",
+        description: "Stuffed flatbread served with curd and pickle.",
+        price: 80,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Jeera Rice with Curry",
+        description: "Flavored cumin rice served with tangy Indian curry.",
+        price: 100,
+        imageUrl: "",
+        categoryId: 15,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+
+      // Thalis - categoryId: 16
+      {
+        name: "North Indian Thali",
+        description: "Includes dal, paneer, roti, rice, salad & sweet.",
+        price: 180,
+        imageUrl: "",
+        categoryId: 16,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "South Indian Thali",
+        description: "Idli, dosa, sambar, rice, rasam, and sweet dish.",
+        price: 170,
+        imageUrl: "",
+        categoryId: 16,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Chinese Thali",
+        description: "Noodles, manchurian, fried rice, and spring roll.",
+        price: 190,
+        imageUrl: "",
+        categoryId: 16,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Mini Tandoor Platter",
+        description: "Paneer tikka, veg kebabs, naan & mint chutney.",
+        price: 200,
+        imageUrl: "",
+        categoryId: 16,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Punjabi Thali",
+        description: "Chole, rajma, rice, roti, salad, and dessert.",
+        price: 185,
+        imageUrl: "",
+        categoryId: 16,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        name: "Tandoori Platter Deluxe",
+        description: "Mix of grilled tandoori vegetables with naan.",
+        price: 210,
+        imageUrl: "",
+        categoryId: 16,
+        type: "Veg",
+        createdAt: now,
+        updatedAt: now,
+      },
+    ]);
   },
 
-  async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete("Dishes", {
+      categoryId: {
+        [Sequelize.Op.in]: [13, 14, 15, 16],
+      },
+    });
   },
 };
