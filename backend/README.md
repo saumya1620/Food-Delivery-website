@@ -11,3 +11,10 @@ npx sequelize-cli seed:generate --name demo-user
 4. npx sequelize-cli seed:generate --name default-food-categories
 5. npx sequelize-cli model:generate --name Order --attributes userId:string,items:json,amount:number,address:json,status:string,payment:boolean,deliveryFee:float,discount:float
 6. npx sequelize-cli model:generate --name OrderDish --attributes orderId:integer,dishId:integer,quantity:integer
+
+# Environment variables for backend
+
+CLOUDINARY_URL=
+CASHFREE_API_KEY=
+CASHFREE_API_SECRET=
+CASHFREE_API_URL=
