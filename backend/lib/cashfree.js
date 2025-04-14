@@ -48,16 +48,3 @@ export async function getCashfreeOrderPayments(orderId) {
     throw new Error(err);
   }
 }
-
-// var request = {
-//     "order_amount": 1.00,
-//     "order_currency": "INR",
-//     "order_id": "devstudio_7315748700009226229",
-//     "customer_details": {
-//         "customer_id": "devstudio_user",
-//         "customer_phone": "8474090589"
-//     },
-//     "order_meta": {
-//         "return_url": "https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}"
-//     }
-// };
