@@ -1,24 +1,53 @@
+const CASHFREE_API_KEY = "TEST10554405f845b6d11ae8b0744b6850445501";
+const CASHFREE_API_SECRET =
+  "cfsk_ma_test_203e52d3e1a19047374e825ea62f7197_4d1f5c37";
+const CASHFREE_API_URL = "https://sandbox.cashfree.com/pg";
 export async function createCashfreeOrder(request) {
-  const Cashfree = await import("cashfree-pg");
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        "x-api-version": "2025-01-01",
+        "x-client-id": CASHFREE_API_KEY,
+        "x-client-secret": CASHFREE_API_SECRET,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(request),
+    };
 
-  Cashfree.XClientId = "171580437fb8d1e5f4bf4074f2085171";
-  Cashfree.XClientSecret = "2d1883835fdfeb4e10096bae2e43073f52b46541";
-  Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+    const response = await fetch(CASHFREE_API_URL + "/orders", options);
+    const json = await response.json();
+    console.log("Order created", json);
+    return json;
+  } catch (err) {
+    console.log("Error while creating order in cashfree", err);
+    throw new Error(err);
+  }
+}
 
-  console.log("Hello ", Cashfree);
-  return new Promise((resolve, reject) => {
-    console.log("Running create order", request);
-    Cashfree.PGCreateOrder("2025-01-01", request)
-      .then((response) => {
-        console.log("Order created successfully:", response.data);
-        resolve(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error.response.data.message);
-        // cb(error.response.data.message, null);
-        reject(error.response.data.message);
-      });
-  });
+export async function getCashfreeOrderPayments(orderId) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "x-api-version": "2025-01-01",
+        "x-client-id": CASHFREE_API_KEY,
+        "x-client-secret": CASHFREE_API_SECRET,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(
+      CASHFREE_API_URL + `/orders/${orderId}/payments`,
+      options
+    );
+    const json = await response.json();
+    console.log("Order payment details", json);
+    return json;
+  } catch (err) {
+    console.log("Error while fetching order payments in cashfree", err);
+    throw new Error(err);
+  }
 }
 
 // var request = {

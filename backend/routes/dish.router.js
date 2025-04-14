@@ -9,7 +9,19 @@ const FoodCategoryController = require("../controllers/food.category.controller"
 const upload = multer({
   dest: "tempUpload",
   fileFilter: (req, file, cb) => {
-    if (["image/jpeg", "image/png", "image/jpg"].includes(file.mimetype)) {
+    if (
+      [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/webp",
+        "image/gif",
+        "image/bmp",
+        "image/svg+xml",
+        "image/tiff",
+        "image/x-icon",
+      ].includes(file.mimetype)
+    ) {
       cb(null, true);
     } else {
       cb(

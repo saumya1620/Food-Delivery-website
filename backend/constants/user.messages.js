@@ -42,11 +42,13 @@ const PAYMENT_STATUSES = {
   Failure: "Failure",
 };
 
-const FRONTEND_URL = "http://localhost:5174";
+const FRONTEND_URL = "http://localhost:5173";
+const BACKEND_URL = "ngrok url here ";
 
 module.exports = {
   USER_MESSAGES,
   ORDER_STATUSES,
   PAYMENT_STATUSES,
   FRONTEND_URL,
+  BACKEND_URL,
 };

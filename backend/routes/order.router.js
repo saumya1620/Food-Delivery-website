@@ -2,7 +2,11 @@ const express = require("express");
 const OrderController = require("../controllers/order.controller");
 const { body } = require("express-validator");
 const validate = require("../middleware/request.validator");
-const { validateToken, isAdmin } = require("../middleware/token.validator");
+const {
+  validateToken,
+  isAdmin,
+  verifyCashfreeSignature,
+} = require("../middleware/token.validator");
 const UserController = require("../controllers/user.controller");
 const { notify } = require("./user.router");
 const { ORDER_STATUSES } = require("../constants/user.messages");
@@ -109,6 +113,18 @@ router.patch(
       .withMessage("Invalid status"),
   ]),
   OrderController.updateStatus
+);
+
+router.post(
+  "/orders/cashfree-webhook",
+  verifyCashfreeSignature,
+  OrderController.cashfreeWebhook
+);
+
+router.post(
+  "/orders/validate-checkout",
+  validateToken,
+  OrderController.validateCheckout
 );
 
 module.exports = router;

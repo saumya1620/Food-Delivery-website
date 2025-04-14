@@ -28,4 +28,28 @@ function isAdmin(req, res, next) {
   next();
 }
 
-module.exports = { validateToken, isAdmin };
+function verifyCashfreeSignature(req, res, next) {
+  const body = req.headers["x-webhook-timestamp"] + req.rawBody;
+  const secretKey = "cfsk_ma_test_203e52d3e1a19047374e825ea62f7197_4d1f5c37";
+  let generatedSignature = crypto
+    .createHmac("sha256", secretKey)
+    .update(body)
+    .digest("base64");
+  const signature = req.headers["x-webhook-signature"];
+
+  console.log(
+    "cashfree signature validation",
+    req.rawBody,
+    signature,
+    generatedSignature
+  );
+  if (generatedSignature === signature) {
+    let jsonObject = JSON.parse(rawBody);
+    req.cashfree = jsonObject;
+    next();
+  }
+
+  throw new Error("Generated signature and received signature did not match.");
+}
+
+module.exports = { validateToken, isAdmin, verifyCashfreeSignature };
